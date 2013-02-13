@@ -16,6 +16,8 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.filecache.DistributedCache;
@@ -73,7 +75,7 @@ public class ParseCorpus extends Configured implements Tool {
   @SuppressWarnings("unchecked")
   public int run(String[] args) throws Exception {
     ParseCorpusOptions parseCorpusOptions = new ParseCorpusOptions(args);
-
+    
     return run(getConf(), parseCorpusOptions);
   }
 
@@ -84,12 +86,17 @@ public class ParseCorpus extends Configured implements Tool {
     String outputPath = parseCorpusOptions.getOutputPath();
     String vocabularyPath = parseCorpusOptions.getIndexPath();
     String stopwordPath = parseCorpusOptions.getStopListPath();
+    
+    sLogger.info("SETTING QUEUE: "+parseCorpusOptions.getQueue());
+    configuration.set("mapred.job.queue.name",parseCorpusOptions.getQueue() );
     Class<? extends Analyzer> analyzerClass = parseCorpusOptions.getAnalyzerClass();
     int numberOfMappers = parseCorpusOptions.getNumberOfMappers();
     int numberOfReducers = parseCorpusOptions.getNumberOfReducers();
     float maximumDocumentFrequency = parseCorpusOptions.getMaximumDocumentFrequency();
     float minimumDocumentFrequency = parseCorpusOptions.getMinimumDocumentFrequency();
     boolean localMerge = parseCorpusOptions.isLocalMerge();
+    
+    
 
     if (!outputPath.endsWith(Path.SEPARATOR)) {
       outputPath += Path.SEPARATOR;
@@ -372,7 +379,7 @@ public class ParseCorpus extends Configured implements Tool {
     // if (vocabularyPath != null) {
     // DistributedCache.addCacheFile(new Path(vocabularyPath).toUri(), conf);
     // }
-
+    
     conf.setNumMapTasks(numberOfMappers);
     conf.setNumReduceTasks(numberOfReducers);
 

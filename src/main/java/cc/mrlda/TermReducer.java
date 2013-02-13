@@ -151,6 +151,7 @@ public class TermReducer extends MapReduceBase implements
     }
 
     // I would be very surprised to get here...
+    // NANNANANANANANANANANANNA BATMAN!
     Preconditions.checkArgument(learning, "Invalid key from Mapper");
     reporter.incrCounter(ParameterCounter.TOTAL_TERMS, 1);
 

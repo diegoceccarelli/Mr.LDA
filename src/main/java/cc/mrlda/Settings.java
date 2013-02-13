@@ -13,6 +13,8 @@ public interface Settings {
   public static final String INPUT_OPTION = "input";
   public static final String OUTPUT_OPTION = "output";
   public static final String INDEX_OPTION = "index";
+  
+  public static final String QUEUE_OPTION = "queue";
 
   public static final String MAPPER_OPTION = "mapper";
   public static final String REDUCER_OPTION = "reducer";

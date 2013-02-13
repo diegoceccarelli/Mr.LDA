@@ -104,6 +104,8 @@ public class VariationalInference extends Configured implements Tool {
     sLogger.info(" - truncation beta: " + truncateBeta);
     sLogger.info(" - informed prior: " + informedPrior);
     sLogger.info(" - symmetric alpha: " + symmetricAlpha);
+    sLogger.info("SETTING QUEUE: "+variationalOptions.getQueue());
+    configuration.set("mapred.job.queue.name",variationalOptions.getQueue() );
 
     JobConf conf = new JobConf(configuration, VariationalInference.class);
     FileSystem fs = FileSystem.get(conf);
@@ -235,8 +237,8 @@ public class VariationalInference extends Configured implements Tool {
       }
 
       conf.setMapperClass(DocumentMapper.class);
-      conf.setReducerClass(TermReducer.class);
       conf.setCombinerClass(TermCombiner.class);
+      conf.setReducerClass(TermReducer.class);
       conf.setPartitionerClass(TermPartitioner.class);
 
       conf.setMapOutputKeyClass(PairOfInts.class);
@@ -347,7 +349,7 @@ public class VariationalInference extends Configured implements Tool {
           // PairOfIntFloat.class, HashMap.class, true, true);
         } else {
           betaDir = FileMerger
-              .mergeSequenceFiles(new Configuration(), betaGlobDir,
+              .mergeSequenceFiles(conf, betaGlobDir,
                   betaPath + (iterationCount + 1), reducerTasks, PairOfIntFloat.class,
                   HMapIDW.class, true, true);
           // betaDir = FileMerger.mergeSequenceFiles(betaGlobDir, betaPath + (iterationCount + 1),

@@ -40,6 +40,7 @@ public class VariationalInferenceOptions {
   private int numberOfIterations = Settings.DEFAULT_GLOBAL_MAXIMUM_ITERATION;
   private int mapperTasks = Settings.DEFAULT_NUMBER_OF_MAPPERS;
   private int reducerTasks = Settings.DEFAULT_NUMBER_OF_REDUCERS;
+  private String queue = "default";
 
   private int numberOfTerms = 0;
 
@@ -86,6 +87,9 @@ public class VariationalInferenceOptions {
         .withDescription(
             "number of reducers (default - " + Settings.DEFAULT_NUMBER_OF_REDUCERS + ")")
         .create(Settings.REDUCER_OPTION));
+    
+    options.addOption(OptionBuilder.withArgName(Settings.QUEUE_OPTION).hasArg()
+        .withDescription("hadoop queue").create(Settings.QUEUE_OPTION));
 
     options.addOption(OptionBuilder.withArgName(Settings.PATH_INDICATOR).hasArgs()
         .withDescription("run program in inference mode, i.e. test held-out likelihood")
@@ -140,6 +144,11 @@ public class VariationalInferenceOptions {
         if (!outputPath.endsWith(Path.SEPARATOR)) {
           outputPath += Path.SEPARATOR;
         }
+      }
+      
+
+      if (line.hasOption(Settings.QUEUE_OPTION)) {
+        queue = line.getOptionValue(Settings.QUEUE_OPTION);
       }
 
       if (line.hasOption(Settings.ITERATION_OPTION)) {
@@ -369,5 +378,12 @@ public class VariationalInferenceOptions {
 
   public String toString() {
     return "K" + numberOfTopics + "";
+  }
+
+  /**
+   * @return
+   */
+  public String getQueue() {
+    return queue;
   }
 }

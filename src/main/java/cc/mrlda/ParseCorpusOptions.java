@@ -38,6 +38,8 @@ public class ParseCorpusOptions {
   public static final float DEFAULT_MINIMUM_TERM_FREQUENCY = 0.0f;
   public static final float DEFAULT_MAXIMUM_TERM_FREQUENCY = 1.0f;
 
+  
+  private String queue = "default";
   private String inputPath = null;
   private String outputPath = null;
   private String indexPath = null;
@@ -62,6 +64,9 @@ public class ParseCorpusOptions {
 
     options.addOption(OptionBuilder.withArgName(Settings.PATH_INDICATOR).hasArg()
         .withDescription("existing term indices").create(INDEX));
+    
+    options.addOption(OptionBuilder.withArgName(Settings.QUEUE_OPTION).hasArg()
+        .withDescription("hadoop queue").create(Settings.QUEUE_OPTION));
 
     options.addOption(OptionBuilder
         .withArgName(Settings.CLASS_INDICATOR)
@@ -121,6 +126,8 @@ public class ParseCorpusOptions {
         formatter.printHelp(ParseCorpus.class.getName(), options);
         System.exit(0);
       }
+      
+      
 
       if (line.hasOption(Settings.INPUT_OPTION)) {
         inputPath = line.getOptionValue(Settings.INPUT_OPTION);
@@ -142,6 +149,9 @@ public class ParseCorpusOptions {
 
       if (line.hasOption(INDEX)) {
         indexPath = line.getOptionValue(INDEX);
+      }
+      if (line.hasOption(Settings.QUEUE_OPTION)) {
+        queue = line.getOptionValue(Settings.QUEUE_OPTION);
       }
 
       if (line.hasOption(ANALYZER)) {
@@ -267,6 +277,10 @@ public class ParseCorpusOptions {
 
   public float getMaximumDocumentFrequency() {
     return maximumDocumentFrequency;
+  }
+  
+  public String getQueue() {
+    return queue;
   }
 
   public float getMinimumDocumentFrequency() {
