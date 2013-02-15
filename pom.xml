@@ -81,6 +81,9 @@
 	</dependency>
 	
   </dependencies>
+
+	
+
 	<build>
 	    <plugins>
 	        <plugin>
@@ -94,4 +97,33 @@
 	        </plugin>
 	    </plugins>
 	</build>
+	
+	<repositories>
+	 <repository>
+	      <id>claudera</id>
+	      <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+	    </repository>
+	  	<repository>
+	                        <id>info-bliki-repository</id>
+	                        <url>http://gwtwiki.googlecode.com/svn/maven-repository/</url>
+	                        <releases>
+	                                <enabled>true</enabled>
+	                        </releases>
+	                        <snapshots>
+	                                <enabled>false</enabled>
+	                        </snapshots>
+	                </repository>
+					<repository>
+					      <id>spy</id>
+					      <name>Spy Repository</name>
+					      <layout>default</layout>
+					      <url>http://dev.mapfish.org/maven/repository/</url>
+					      <snapshots>
+					        <enabled>false</enabled>
+					      </snapshots>
+					    </repository>
+					
+
+
+	</repositories>
 </project>
