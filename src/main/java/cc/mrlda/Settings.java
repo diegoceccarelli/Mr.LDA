@@ -36,7 +36,7 @@ public interface Settings {
 
   public static final double DEFAULT_COUNTER_SCALE = 1e6;
 
-  public static final String INFERENCE_MODE_OPTION = "test";
+  public static final String INFERENCE_MODE_OPTION = "model";
   public static final String RANDOM_START_GAMMA_OPTION = "randomstart";
   public static final String MODEL_INDEX = "modelindex";
   public static final String SYMMETRIC_ALPHA = "symmetricalpha";
