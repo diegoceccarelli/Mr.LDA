@@ -119,7 +119,7 @@ public class VariationalInference extends Configured implements Tool {
 		configuration.set("mapred.job.queue.name",
 				variationalOptions.getQueue());
 		
-		configuration.set("mapred.child.java.opts", "-Xmx4000m");
+		//configuration.set("mapred.child.java.opts", "-Xmx4000m");
 
 		JobConf conf = new JobConf(configuration, VariationalInference.class);
 		FileSystem fs = FileSystem.get(conf);
