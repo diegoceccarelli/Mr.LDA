@@ -11,3 +11,7 @@ lib/
 .DS_Store
 .svn/
 */.svn/
+.classpath
+.settings
+.project
+target/
