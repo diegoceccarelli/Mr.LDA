@@ -125,7 +125,7 @@ public class DisplayTopic2 extends Configured implements Tool {
         while (itr1.hasNext()) {
           
           int id = itr1.next();
-          double d = hmap.get(temp1);
+          double d = hmap.get(id);
           if (termIndex.containsKey(id)) {
         	  System.out.println(termIndex.get(id) + "\t" + d);
         	  
