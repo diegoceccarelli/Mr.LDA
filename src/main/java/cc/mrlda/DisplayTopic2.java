@@ -112,6 +112,7 @@ public class DisplayTopic2 extends Configured implements Tool {
       
       // read the beta file:
       // id topic -> map with id->prob, for each term-id
+      double threshold = -0.90e12;
       while (sequenceFileReader.next(pairOfIntFloat, hmap)) {
         treeMap.clear();
 
@@ -121,11 +122,12 @@ public class DisplayTopic2 extends Configured implements Tool {
         System.out.println("==============================");
 
         Iterator<Integer> itr1 = hmap.keySet().iterator();
-        int temp1 = 0;
+        
         while (itr1.hasNext()) {
           
           int id = itr1.next();
-          float d = (float)hmap.get(id);
+          double d = (double)hmap.get(id);
+          if (d <= threshold) continue;
           if (termIndex.containsKey(id)) {
         	  System.out.println(termIndex.get(id) + "\t" + d);
         	  
