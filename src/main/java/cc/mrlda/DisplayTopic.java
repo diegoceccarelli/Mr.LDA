@@ -108,6 +108,10 @@ public class DisplayTopic extends Configured implements Tool {
       HMapIDW hmap = new HMapIDW();
       TreeMap<Double, Integer> treeMap = new TreeMap<Double, Integer>();
       sequenceFileReader = new SequenceFile.Reader(fs, betaPath, conf);
+      
+      
+      // read the beta file:
+      // id topic -> map with id->prob, for each term-id
       while (sequenceFileReader.next(pairOfIntFloat, hmap)) {
         treeMap.clear();
 
@@ -121,6 +125,9 @@ public class DisplayTopic extends Configured implements Tool {
         while (itr1.hasNext()) {
           temp1 = itr1.next();
           treeMap.put(-hmap.get(temp1), temp1);
+          
+          
+          // mmmmmmmm FIXME seems a bug
           if (treeMap.size() > topDisplay) {
             treeMap.remove(treeMap.lastKey());
           }
